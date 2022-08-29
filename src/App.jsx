@@ -16,9 +16,11 @@ export default function App() {
     (async () => {
       try {
         const page = await wiki.page(selectedCountry.countryName);
-        const data = await page.summary();
-        const info = await page.infobox()
-        const body = await page.intro()
+        const [data, info, body] = await Promise.all([
+          page.summary(),
+          page.infobox(),
+          page.intro()
+        ])
         setSelectedCountry({
           animationChange: false
         })
